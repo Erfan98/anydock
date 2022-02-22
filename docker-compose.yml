@@ -1,0 +1,46 @@
+version: '3.9'
+services:
+  
+  doc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ubuntu:latest
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - app-network
+
+  #MySQL Service
+  # db:
+  #   image: mysql:5.7.22
+  #   container_name: db
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: laravel
+  #     MYSQL_USER: root
+  #     MYSQL_PASSWORD: root
+  #     SERVICE_TAGS: dev
+  #     SERVICE_NAME: mysql
+  #   volumes:
+  #     - dbdata:/var/lib/mysql/
+  #     - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+  #   networks:
+  #     - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+# #Volumes
+# volumes:
+#   dbdata:
+#     driver: local
